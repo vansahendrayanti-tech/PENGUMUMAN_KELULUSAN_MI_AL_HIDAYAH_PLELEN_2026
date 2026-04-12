@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Pengumuman Kelulusan</title>
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: url('bg.jpg') no-repeat;
     background-size: cover;
     background-position: center 30%;
@@ -16,13 +17,13 @@ body {
     color: white;
 }
 
-/* area tengah */
+/* container */
 .container {
     max-width: 350px;
     margin: 250px auto;
 }
 
-/* teks biar jelas */
+/* text */
 h2, h3, p {
     text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 }
@@ -33,7 +34,6 @@ input {
     width: 80%;
     border-radius: 10px;
     border: none;
-    margin-top: 10px;
 }
 
 /* tombol */
@@ -46,16 +46,23 @@ button {
     margin-top: 10px;
 }
 
-/* animasi */
-.fade {
+/* animasi hilang */
+.hide {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(-40px);
     transition: 0.7s;
 }
 
-.fade.show {
+/* animasi muncul */
+.show {
     opacity: 1;
     transform: translateY(0);
+    transition: 0.7s;
+}
+
+/* awal hidden */
+#hasil {
+    opacity: 0;
 }
 
 /* foto */
@@ -76,7 +83,6 @@ img {
     font-size: 22px;
     font-weight: bold;
     color: #00ff88;
-    margin-top: 10px;
 }
 
 /* confetti */
@@ -100,67 +106,91 @@ img {
 
 <div class="container">
 
-<h2>CEK KELULUSAN</h2>
+<!-- FORM -->
+<div id="formBox">
+    <h2>CEK KELULUSAN</h2>
+    <input type="text" id="nisn" placeholder="Masukkan NISN">
+    <br>
+    <button onclick="cek()">CEK</button>
+</div>
 
-<input type="text" id="nisn" placeholder="Masukkan NISN">
-<br>
-<button onclick="cek()">CEK</button>
-
-<div id="hasil" class="fade"></div>
+<!-- HASIL -->
+<div id="hasil"></div>
 
 </div>
+
+<!-- AUDIO -->
+<audio id="musik" src="musik.mp3" loop></audio>
 
 <script>
 
 const data = [
-{nisn:"3138840469", nama:"IKHFANUL SAPUTRA", ttl:"BATANG, 24 September 2013", foto:"1.jpg"},
-{nisn:"3133721711", nama:"INDHIRA MAY NOVI ZULIANTY", ttl:"BATANG, 01 November 2013", foto:"2.jpg"},
-{nisn:"0149653962", nama:"KAUMA SAFIYA SALSABILA RIZKY", ttl:"BOGOR, 13 Juli 2014", foto:"3.jpg"},
-{nisn:"3132128542", nama:"KHAYLA ZAYAN UFAIRA", ttl:"BATANG, 26 Juni 2013", foto:"4.jpg"},
-{nisn:"3142121807", nama:"LATIFATUL HIKMAH", ttl:"BATANG, 21 Mei 2014", foto:"5.jpg"},
-{nisn:"3145980864", nama:"MICAYLA RAISYA PUTRI", ttl:"BATANG, 05 Januari 2014", foto:"6.jpg"},
-{nisn:"3149874429", nama:"MIFTAKHUL JANNAH", ttl:"KENDAL, 07 April 2014", foto:"7.jpg"},
-{nisn:"3136563204", nama:"MUHAMMAD DWI PRASETYO", ttl:"BATANG, 12 Oktober 2013", foto:"8.jpg"},
-{nisn:"3147581861", nama:"MUHAMMAD FATIH AADIL AL BARRAA", ttl:"BATANG, 02 Januari 2014", foto:"9.jpg"},
-{nisn:"3142466117", nama:"MUHAMMAD ILHAM MUNAZAL", ttl:"BATANG, 24 Februari 2014", foto:"10.jpg"},
-{nisn:"3142612994", nama:"MUHAMMAD VIRZA NUR HIDAYATULLOH", ttl:"BATANG, 08 Mei 2014", foto:"11.jpg"},
-{nisn:"3135389357", nama:"RAFAEL GALANG SAPUTRA", ttl:"BATANG, 20 Agustus 2013", foto:"12.jpg"},
-{nisn:"0146644118", nama:"TAQIYA AZKATALIA", ttl:"KENDAL, 11 Februari 2014", foto:"13.jpg"},
-{nisn:"3144807093", nama:"TIARA AULIA NISA", ttl:"BATANG, 28 Mei 2014", foto:"14.jpg"},
-{nisn:"3138229405", nama:"TIRTA NUR ZAMMI", ttl:"JAKARTA, 22 September 2013", foto:"15.jpg"},
-{nisn:"3131510825", nama:"YAHYA ANDIRJA SUSANTO", ttl:"BATANG, 31 Oktober 2013", foto:"16.jpg"},
-{nisn:"3138644160", nama:"ZAHRA KURNIA", ttl:"BATANG, 26 Mei 2013", foto:"17.jpg"},
-{nisn:"3133735700", nama:"ZAHWA ISLAH SOFYA", ttl:"BATANG, 17 November 2013", foto:"18.jpg"}
+{nisn:"3138840469", nama:"IKHFANUL SAPUTRA", ttl:"BATANG, 24 September 2013", foto:"foto/1.jpg"},
+{nisn:"3133721711", nama:"INDHIRA MAY NOVI ZULIANTY", ttl:"BATANG, 01 November 2013", foto:"foto/2.jpg"},
+{nisn:"0149653962", nama:"KAUMA SAFIYA SALSABILA RIZKY", ttl:"BOGOR, 13 Juli 2014", foto:"foto/3.jpg"},
+{nisn:"3132128542", nama:"KHAYLA ZAYAN UFAIRA", ttl:"BATANG, 26 Juni 2013", foto:"foto/4.jpg"},
+{nisn:"3142121807", nama:"LATIFATUL HIKMAH", ttl:"BATANG, 21 Mei 2014", foto:"foto/5.jpg"},
+{nisn:"3145980864", nama:"MICAYLA RAISYA PUTRI", ttl:"BATANG, 05 Januari 2014", foto:"foto/6.jpg"},
+{nisn:"3149874429", nama:"MIFTAKHUL JANNAH", ttl:"KENDAL, 07 April 2014", foto:"foto/7.jpg"},
+{nisn:"3136563204", nama:"MUHAMMAD DWI PRASETYO", ttl:"BATANG, 12 Oktober 2013", foto:"foto/8.jpg"},
+{nisn:"3147581861", nama:"MUHAMMAD FATIH AADIL AL BARRAA", ttl:"BATANG, 02 Januari 2014", foto:"foto/9.jpg"},
+{nisn:"3142466117", nama:"MUHAMMAD ILHAM MUNAZAL", ttl:"BATANG, 24 Februari 2014", foto:"foto/10.jpg"},
+{nisn:"3142612994", nama:"MUHAMMAD VIRZA NUR HIDAYATULLOH", ttl:"BATANG, 08 Mei 2014", foto:"foto/11.jpg"},
+{nisn:"3135389357", nama:"RAFAEL GALANG SAPUTRA", ttl:"BATANG, 20 Agustus 2013", foto:"foto/12.jpg"},
+{nisn:"0146644118", nama:"TAQIYA AZKATALIA", ttl:"KENDAL, 11 Februari 2014", foto:"foto/13.jpg"},
+{nisn:"3144807093", nama:"TIARA AULIA NISA", ttl:"BATANG, 28 Mei 2014", foto:"foto/14.jpg"},
+{nisn:"3138229405", nama:"TIRTA NUR ZAMMI", ttl:"JAKARTA, 22 September 2013", foto:"foto/15.jpg"},
+{nisn:"3131510825", nama:"YAHYA ANDIRJA SUSANTO", ttl:"BATANG, 31 Oktober 2013", foto:"foto/16.jpg"},
+{nisn:"3138644160", nama:"ZAHRA KURNIA", ttl:"BATANG, 26 Mei 2013", foto:"foto/17.jpg"},
+{nisn:"3133735700", nama:"ZAHWA ISLAH SOFYA", ttl:"BATANG, 17 November 2013", foto:"foto/18.jpg"}
 ];
 
+let musikMulai = false;
+
 function cek(){
+
+    let audio = document.getElementById("musik");
+
+    // 🔊 PLAY MUSIK SEKALI
+    if(!musikMulai){
+        audio.play();
+        musikMulai = true;
+    }
+
     let input = document.getElementById("nisn").value.trim();
     let hasil = document.getElementById("hasil");
-
-    hasil.classList.remove("show");
+    let form = document.getElementById("formBox");
 
     let siswa = data.find(d => d.nisn === input);
 
     if(siswa){
-        hasil.innerHTML = `
-            <img src="${siswa.foto}">
-            <h3>${siswa.nama}</h3>
-            <p>${siswa.ttl}</p>
-            <div class="lulus">DINYATAKAN LULUS</div>
-        `;
 
-        setTimeout(() => {
+        // animasi form hilang
+        form.classList.add("hide");
+
+        setTimeout(()=>{
+
+            form.style.display = "none";
+
+            hasil.innerHTML = `
+                <img src="${siswa.foto}">
+                <h3>${siswa.nama}</h3>
+                <p>${siswa.ttl}</p>
+                <div class="lulus">DINYATAKAN LULUS</div>
+            `;
+
             hasil.classList.add("show");
-        }, 100);
 
-        confetti();
+            confetti();
+
+        }, 600);
 
     } else {
-        hasil.innerHTML = "<b>Data tidak ditemukan</b>";
-        hasil.classList.add("show");
+        alert("Data tidak ditemukan");
     }
 }
 
+/* confetti */
 function confetti(){
     for(let i=0;i<30;i++){
         let div = document.createElement("div");
