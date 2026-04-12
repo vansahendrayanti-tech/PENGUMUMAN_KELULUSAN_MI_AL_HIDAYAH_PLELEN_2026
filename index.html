@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengumuman Kelulusan MI Al Hidayah Plelen</title>
+<title>Pengumuman Kelulusan</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('bg.jpg') no-repeat center center/cover;
-}
-
-/* overlay tengah */
-.overlay {
-    background: rgba(255,255,255,0.88);
-    margin: 120px 20px;
-    padding: 25px;
-    border-radius: 20px;
+    background: url('bg.jpg') no-repeat;
+    background-size: cover;
+    background-position: center 30%;
     text-align: center;
-    backdrop-filter: blur(6px);
+    color: white;
 }
 
-/* judul */
-h2 {
-    margin-bottom: 15px;
+/* area tengah */
+.container {
+    max-width: 350px;
+    margin: 250px auto;
+}
+
+/* teks biar jelas */
+h2, h3, p {
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
 }
 
 /* input */
@@ -33,8 +33,7 @@ input {
     width: 80%;
     border-radius: 10px;
     border: none;
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-top: 10px;
 }
 
 /* tombol */
@@ -44,8 +43,7 @@ button {
     background: linear-gradient(45deg, #16a34a, #22c55e);
     color: white;
     border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
+    margin-top: 10px;
 }
 
 /* animasi */
@@ -75,9 +73,9 @@ img {
 
 /* status */
 .lulus {
-    color: green;
     font-size: 22px;
     font-weight: bold;
+    color: #00ff88;
     margin-top: 10px;
 }
 
@@ -100,7 +98,7 @@ img {
 
 <body>
 
-<div class="overlay">
+<div class="container">
 
 <h2>CEK KELULUSAN</h2>
 
@@ -114,29 +112,27 @@ img {
 
 <script>
 
-/* DATA SISWA */
 const data = [
-{nisn:"3138840469", nama:"IKHFANUL SAPUTRA", foto:"foto/1.jpg"},
-{nisn:"3133721711", nama:"INDHIRA MAY NOVI ZULIANTY", foto:"foto/2.jpg"},
-{nisn:"0149653962", nama:"KAUMA SAFIYA SALSABILA RIZKY", foto:"foto/3.jpg"},
-{nisn:"3132128542", nama:"KHAYLA ZAYAN UFAIRA", foto:"foto/4.jpg"},
-{nisn:"3142121807", nama:"LATIFATUL HIKMAH", foto:"foto/5.jpg"},
-{nisn:"3145980864", nama:"MICAYLA RAISYA PUTRI", foto:"foto/6.jpg"},
-{nisn:"3149874429", nama:"MIFTAKHUL JANNAH", foto:"foto/7.jpg"},
-{nisn:"3136563204", nama:"MUHAMMAD DWI PRASETYO", foto:"foto/8.jpg"},
-{nisn:"3147581861", nama:"MUHAMMAD FATIH AADIL AL BARRAA", foto:"foto/9.jpg"},
-{nisn:"3142466117", nama:"MUHAMMAD ILHAM MUNAZAL", foto:"foto/10.jpg"},
-{nisn:"3142612994", nama:"MUHAMMAD VIRZA NUR HIDAYATULLOH", foto:"foto/11.jpg"},
-{nisn:"3135389357", nama:"RAFAEL GALANG SAPUTRA", foto:"foto/12.jpg"},
-{nisn:"0146644118", nama:"TAQIYA AZKATALIA", foto:"foto/13.jpg"},
-{nisn:"3144807093", nama:"TIARA AULIA NISA", foto:"foto/14.jpg"},
-{nisn:"3138229405", nama:"TIRTA NUR ZAMMI", foto:"foto/15.jpg"},
-{nisn:"3131510825", nama:"YAHYA ANDIRJA SUSANTO", foto:"foto/16.jpg"},
-{nisn:"3138644160", nama:"ZAHRA KURNIA", foto:"foto/17.jpg"},
-{nisn:"3133735700", nama:"ZAHWA ISLAH SOFYA", foto:"foto/18.jpg"}
+{nisn:"3138840469", nama:"IKHFANUL SAPUTRA", ttl:"BATANG, 24 September 2013", foto:"foto/1.jpg"},
+{nisn:"3133721711", nama:"INDHIRA MAY NOVI ZULIANTY", ttl:"BATANG, 01 November 2013", foto:"foto/2.jpg"},
+{nisn:"0149653962", nama:"KAUMA SAFIYA SALSABILA RIZKY", ttl:"BOGOR, 13 Juli 2014", foto:"foto/3.jpg"},
+{nisn:"3132128542", nama:"KHAYLA ZAYAN UFAIRA", ttl:"BATANG, 26 Juni 2013", foto:"foto/4.jpg"},
+{nisn:"3142121807", nama:"LATIFATUL HIKMAH", ttl:"BATANG, 21 Mei 2014", foto:"foto/5.jpg"},
+{nisn:"3145980864", nama:"MICAYLA RAISYA PUTRI", ttl:"BATANG, 05 Januari 2014", foto:"foto/6.jpg"},
+{nisn:"3149874429", nama:"MIFTAKHUL JANNAH", ttl:"KENDAL, 07 April 2014", foto:"foto/7.jpg"},
+{nisn:"3136563204", nama:"MUHAMMAD DWI PRASETYO", ttl:"BATANG, 12 Oktober 2013", foto:"foto/8.jpg"},
+{nisn:"3147581861", nama:"MUHAMMAD FATIH AADIL AL BARRAA", ttl:"BATANG, 02 Januari 2014", foto:"foto/9.jpg"},
+{nisn:"3142466117", nama:"MUHAMMAD ILHAM MUNAZAL", ttl:"BATANG, 24 Februari 2014", foto:"foto/10.jpg"},
+{nisn:"3142612994", nama:"MUHAMMAD VIRZA NUR HIDAYATULLOH", ttl:"BATANG, 08 Mei 2014", foto:"foto/11.jpg"},
+{nisn:"3135389357", nama:"RAFAEL GALANG SAPUTRA", ttl:"BATANG, 20 Agustus 2013", foto:"foto/12.jpg"},
+{nisn:"0146644118", nama:"TAQIYA AZKATALIA", ttl:"KENDAL, 11 Februari 2014", foto:"foto/13.jpg"},
+{nisn:"3144807093", nama:"TIARA AULIA NISA", ttl:"BATANG, 28 Mei 2014", foto:"foto/14.jpg"},
+{nisn:"3138229405", nama:"TIRTA NUR ZAMMI", ttl:"JAKARTA, 22 September 2013", foto:"foto/15.jpg"},
+{nisn:"3131510825", nama:"YAHYA ANDIRJA SUSANTO", ttl:"BATANG, 31 Oktober 2013", foto:"foto/16.jpg"},
+{nisn:"3138644160", nama:"ZAHRA KURNIA", ttl:"BATANG, 26 Mei 2013", foto:"foto/17.jpg"},
+{nisn:"3133735700", nama:"ZAHWA ISLAH SOFYA", ttl:"BATANG, 17 November 2013", foto:"foto/18.jpg"}
 ];
 
-/* CEK DATA */
 function cek(){
     let input = document.getElementById("nisn").value.trim();
     let hasil = document.getElementById("hasil");
@@ -149,6 +145,7 @@ function cek(){
         hasil.innerHTML = `
             <img src="${siswa.foto}">
             <h3>${siswa.nama}</h3>
+            <p>${siswa.ttl}</p>
             <div class="lulus">DINYATAKAN LULUS</div>
         `;
 
@@ -164,7 +161,6 @@ function cek(){
     }
 }
 
-/* CONFETTI */
 function confetti(){
     for(let i=0;i<30;i++){
         let div = document.createElement("div");
