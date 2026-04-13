@@ -3,85 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Pengumuman Kelulusan</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial;
-    background: #000;
-    text-align: center;
-    color: white;
+    margin:0;
+    font-family:Arial;
+    text-align:center;
+    background:#000;
+    color:white;
 }
 
-/* FORM */
-#formBox {
-    margin-top: 200px;
-    transition: 0.6s;
+/* SEMUA HALAMAN */
+.page {
+    display:none;
 }
 
-input {
-    padding: 12px;
-    width: 80%;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
+/* AKTIF */
+.active {
+    display:block;
+    animation:fade 0.7s;
 }
 
-button {
-    padding: 12px 25px;
-    border: none;
-    background: #16a34a;
-    color: white;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-/* ANIMASI */
-.fade-out {
-    opacity: 0;
-    transform: translateY(-40px);
-}
-
-/* HASIL */
-#hasil {
-    display: none;
-    margin-top: 20px;
-    animation: muncul 0.8s ease;
-}
-
-@keyframes muncul {
-    from {opacity:0; transform: translateY(40px);}
-    to {opacity:1; transform: translateY(0);}
+@keyframes fade {
+    from {opacity:0; transform:translateY(40px);}
+    to {opacity:1; transform:translateY(0);}
 }
 
 /* GAMBAR */
 img {
-    width: 95%;
-    max-width: 380px;
-    border-radius: 12px;
+    width:95%;
+    max-width:380px;
+    margin-top:20px;
+    border-radius:12px;
+}
+
+/* TOMBOL */
+button {
+    padding:12px 25px;
+    border:none;
+    background:#16a34a;
+    color:white;
+    border-radius:10px;
+    margin-top:15px;
+    font-size:16px;
+}
+
+/* FORM */
+input {
+    padding:12px;
+    width:80%;
+    border-radius:10px;
+    border:none;
+    font-size:16px;
 }
 </style>
 </head>
 
 <body>
 
-<div id="formBox">
+<!-- MUSIK -->
+<audio id="musik" src="musik.mp3" loop></audio>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+    <img src="sambutan1.png">
+    <br>
+    <button onclick="nextPage(2)">Lanjut</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+    <img src="sambutan2.png">
+    <br>
+    <button onclick="nextPage(3)">Lanjut</button>
+</div>
+
+<!-- PAGE 3 (FORM) -->
+<div id="page3" class="page">
     <h2>CEK KELULUSAN</h2>
     <input type="text" id="nisn" placeholder="Masukkan NISN">
     <br>
     <button onclick="cek()">CEK</button>
 </div>
 
-<div id="hasil"></div>
-
-<!-- MUSIK -->
-<audio id="musik" src="musik.mp3" loop></audio>
+<!-- HASIL -->
+<div id="page4" class="page"></div>
 
 <script>
 
-/* DATA NISN → GAMBAR */
+/* DATA */
 const data = [
 {nisn:"3138840469", img:"1.png"},
 {nisn:"3133721711", img:"2.png"},
@@ -103,9 +115,30 @@ const data = [
 {nisn:"3133735700", img:"18.png"}
 ];
 
+/* MUSIK */
 let musikMulai = false;
 
+function playMusik(){
+    let audio = document.getElementById("musik");
+    if(!musikMulai){
+        audio.play().catch(()=>{});
+        musikMulai = true;
+    }
+}
+
+/* PINDAH HALAMAN */
+function nextPage(n){
+
+    playMusik();
+
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page"+n).classList.add("active");
+}
+
+/* CEK NISN */
 function cek(){
+
+    playMusik();
 
     let nisn = document.getElementById("nisn").value.trim();
     let siswa = data.find(d => d.nisn === nisn);
@@ -115,26 +148,13 @@ function cek(){
         return;
     }
 
-    // 🔊 musik (sekali saja, tidak restart)
-    let audio = document.getElementById("musik");
-    if(!musikMulai){
-        audio.play().catch(()=>{});
-        musikMulai = true;
-    }
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
 
-    let form = document.getElementById("formBox");
-    let hasil = document.getElementById("hasil");
-
-    form.classList.add("fade-out");
-
-    setTimeout(()=>{
-        form.style.display = "none";
-
-        hasil.innerHTML = `<img src="${siswa.img}">`;
-        hasil.style.display = "block";
-
-    }, 500);
+    let hasil = document.getElementById("page4");
+    hasil.innerHTML = `<img src="${siswa.img}">`;
+    hasil.classList.add("active");
 }
+
 </script>
 
 </body>
