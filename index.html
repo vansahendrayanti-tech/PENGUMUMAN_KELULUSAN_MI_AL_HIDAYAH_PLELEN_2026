@@ -3,30 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengumuman Kelulusan MI Al Hidayah Plelen</title>
+<title>Pengumuman Kelulusan</title>
 
 <style>
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('bg.jpg') no-repeat;
-    background-size: cover;
-    background-position: center 30%;
+    font-family: Arial;
+    background: #000;
     text-align: center;
     color: white;
 }
 
-/* container */
-.container {
-    margin-top: 240px;
+/* FORM */
+#formBox {
+    margin-top: 200px;
+    transition: 0.6s;
 }
 
-/* teks */
-h2, h3, p {
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
-}
-
-/* input */
 input {
     padding: 12px;
     width: 80%;
@@ -35,63 +28,44 @@ input {
     font-size: 16px;
 }
 
-/* tombol */
 button {
     padding: 12px 25px;
     border: none;
-    background: linear-gradient(45deg, #16a34a, #22c55e);
+    background: #16a34a;
     color: white;
     border-radius: 10px;
     margin-top: 10px;
     font-size: 16px;
-    cursor: pointer;
 }
 
-/* animasi keluar */
+/* ANIMASI */
 .fade-out {
     opacity: 0;
     transform: translateY(-40px);
-    transition: 0.7s;
 }
 
-/* hasil */
+/* HASIL */
 #hasil {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s;
+    display: none;
+    margin-top: 20px;
+    animation: muncul 0.8s ease;
 }
 
-#hasil.show {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes muncul {
+    from {opacity:0; transform: translateY(40px);}
+    to {opacity:1; transform: translateY(0);}
 }
 
-/* foto */
+/* GAMBAR */
 img {
-    width: 120px;
+    width: 95%;
+    max-width: 380px;
     border-radius: 12px;
-    margin-top: 10px;
-    animation: zoom 0.5s ease;
-}
-
-@keyframes zoom {
-    from {transform: scale(0.7);}
-    to {transform: scale(1);}
-}
-
-/* status */
-.lulus {
-    color: #00ff88;
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 10px;
 }
 </style>
 </head>
 
 <body>
-
-<div class="container">
 
 <div id="formBox">
     <h2>CEK KELULUSAN</h2>
@@ -102,78 +76,65 @@ img {
 
 <div id="hasil"></div>
 
-</div>
-
-<!-- AUDIO -->
+<!-- MUSIK -->
 <audio id="musik" src="musik.mp3" loop></audio>
 
 <script>
 
-/* DATA SISWA */
+/* DATA NISN → GAMBAR */
 const data = [
-{nisn:"3138840469", nama:"IKHFANUL SAPUTRA", ttl:"BATANG, 24 September 2013", foto:"1.jpg"},
-{nisn:"3133721711", nama:"INDHIRA MAY NOVI ZULIANTY", ttl:"BATANG, 01 November 2013", foto:"2.jpg"},
-{nisn:"0149653962", nama:"KAUMA SAFIYA SALSABILA RIZKY", ttl:"BOGOR, 13 Juli 2014", foto:"3.jpg"},
-{nisn:"3132128542", nama:"KHAYLA ZAYAN UFAIRA", ttl:"BATANG, 26 Juni 2013", foto:"4.jpg"},
-{nisn:"3142121807", nama:"LATIFATUL HIKMAH", ttl:"BATANG, 21 Mei 2014", foto:"5.jpg"},
-{nisn:"3145980864", nama:"MICAYLA RAISYA PUTRI", ttl:"BATANG, 05 Januari 2014", foto:"6.jpg"},
-{nisn:"3149874429", nama:"MIFTAKHUL JANNAH", ttl:"KENDAL, 07 April 2014", foto:"7.jpg"},
-{nisn:"3136563204", nama:"MUHAMMAD DWI PRASETYO", ttl:"BATANG, 12 Oktober 2013", foto:"8.jpg"},
-{nisn:"3147581861", nama:"MUHAMMAD FATIH AADIL AL BARRAA", ttl:"BATANG, 02 Januari 2014", foto:"9.jpg"},
-{nisn:"3142466117", nama:"MUHAMMAD ILHAM MUNAZAL", ttl:"BATANG, 24 Februari 2014", foto:"10.jpg"},
-{nisn:"3142612994", nama:"MUHAMMAD VIRZA NUR HIDAYATULLOH", ttl:"BATANG, 08 Mei 2014", foto:"11.jpg"},
-{nisn:"3135389357", nama:"RAFAEL GALANG SAPUTRA", ttl:"BATANG, 20 Agustus 2013", foto:"12.jpg"},
-{nisn:"0146644118", nama:"TAQIYA AZKATALIA", ttl:"KENDAL, 11 Februari 2014", foto:"13.jpg"},
-{nisn:"3144807093", nama:"TIARA AULIA NISA", ttl:"BATANG, 28 Mei 2014", foto:"14.jpg"},
-{nisn:"3138229405", nama:"TIRTA NUR ZAMMI", ttl:"JAKARTA, 22 September 2013", foto:"15.jpg"},
-{nisn:"3131510825", nama:"YAHYA ANDIRJA SUSANTO", ttl:"BATANG, 31 Oktober 2013", foto:"16.jpg"},
-{nisn:"3138644160", nama:"ZAHRA KURNIA", ttl:"BATANG, 26 Mei 2013", foto:"17.jpg"},
-{nisn:"3133735700", nama:"ZAHWA ISLAH SOFYA", ttl:"BATANG, 17 November 2013", foto:"18.jpg"}
+{nisn:"3138840469", img:"1.png"},
+{nisn:"3133721711", img:"2.png"},
+{nisn:"0149653962", img:"3.png"},
+{nisn:"3132128542", img:"4.png"},
+{nisn:"3142121807", img:"5.png"},
+{nisn:"3145980864", img:"6.png"},
+{nisn:"3149874429", img:"7.png"},
+{nisn:"3136563204", img:"8.png"},
+{nisn:"3147581861", img:"9.png"},
+{nisn:"3142466117", img:"10.png"},
+{nisn:"3142612994", img:"11.png"},
+{nisn:"3135389357", img:"12.png"},
+{nisn:"0146644118", img:"13.png"},
+{nisn:"3144807093", img:"14.png"},
+{nisn:"3138229405", img:"15.png"},
+{nisn:"3131510825", img:"16.png"},
+{nisn:"3138644160", img:"17.png"},
+{nisn:"3133735700", img:"18.png"}
 ];
 
-/* MUSIK CONTROL */
 let musikMulai = false;
 
 function cek(){
 
-    let audio = document.getElementById("musik");
+    let nisn = document.getElementById("nisn").value.trim();
+    let siswa = data.find(d => d.nisn === nisn);
 
-    // 🔊 play sekali (tidak restart)
+    if(!siswa){
+        alert("NISN tidak ditemukan");
+        return;
+    }
+
+    // 🔊 musik (sekali saja, tidak restart)
+    let audio = document.getElementById("musik");
     if(!musikMulai){
         audio.play().catch(()=>{});
         musikMulai = true;
     }
 
-    let input = document.getElementById("nisn").value.trim();
-    let siswa = data.find(d => d.nisn === input);
-
-    if(!siswa){
-        alert("Data tidak ditemukan");
-        return;
-    }
-
     let form = document.getElementById("formBox");
     let hasil = document.getElementById("hasil");
 
-    // animasi hilang
     form.classList.add("fade-out");
 
     setTimeout(()=>{
-
         form.style.display = "none";
 
-        hasil.innerHTML = `
-            <img src="${siswa.foto}">
-            <h3>${siswa.nama}</h3>
-            <p>${siswa.ttl}</p>
-            <div class="lulus">DINYATAKAN LULUS</div>
-        `;
+        hasil.innerHTML = `<img src="${siswa.img}">`;
+        hasil.style.display = "block";
 
-        hasil.classList.add("show");
-
-    }, 600);
+    }, 500);
 }
-
 </script>
 
 </body>
